@@ -1,0 +1,23 @@
+# Personal config with real API keys — use config.example.yaml as template
+config.yaml
+
+# Personal daily tasks
+tasks.yaml
+
+# Personal notes
+notes.txt
+notes_archive/
+
+# Generated PDFs
+output/
+
+# Jira token
+.bulletin_jira_token
+
+# Python
+__pycache__/
+*.pyc
+.env
+
+# macOS
+.DS_Store

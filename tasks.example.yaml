@@ -1,0 +1,14 @@
+# Rename this file to tasks.yaml and update it each morning.
+# priority: high | medium | low
+# time: optional (e.g. "10:00") — leave empty if not time-bound
+
+today_tasks:
+  - text: "Weekly team sync"
+    priority: high
+    time: "10:00"
+  - text: "Review pull requests"
+    priority: medium
+    time: ""
+  - text: "Reply to emails"
+    priority: low
+    time: ""

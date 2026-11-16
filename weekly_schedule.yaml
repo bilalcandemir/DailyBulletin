@@ -1,0 +1,56 @@
+schedule:
+  monday:
+    label: "Monday"
+    weekday: 0
+    tasks:
+      - "Set weekly goals"
+      - "Inbox zero"
+    sport: "Walk — 8,000 steps"
+
+  tuesday:
+    label: "Tuesday"
+    weekday: 1
+    tasks:
+      - "Gym — leg day"
+      - "Accounting check"
+    sport: "Gym — legs + abs"
+
+  wednesday:
+    label: "Wednesday"
+    weekday: 2
+    tasks:
+      - "Gym — upper body"
+      - "1-on-1 meetings"
+    sport: "Gym — shoulders + chest"
+
+  thursday:
+    label: "Thursday"
+    weekday: 3
+    tasks:
+      - "Pool — 1 hour"
+      - "Project review"
+    sport: "Swimming — 1 hour"
+
+  friday:
+    label: "Friday"
+    weekday: 4
+    tasks:
+      - "Gym — cardio"
+      - "Weekly retrospective"
+    sport: "Run or cardio"
+
+  saturday:
+    label: "Saturday"
+    weekday: 5
+    tasks:
+      - "Long walk"
+      - "Weekly grocery run"
+    sport: "Long walk — 10,000+ steps"
+
+  sunday:
+    label: "Sunday"
+    weekday: 6
+    tasks:
+      - "Plan the week ahead"
+      - "Reading session"
+    sport: "Active rest / yoga"

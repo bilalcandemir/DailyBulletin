@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:wght@400;700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "Libre Baskerville", "Times New Roman", Georgia, serif;
+    font-size: 9pt;
+    color: #000;
+    background: #fff;
+    line-height: 1.35;
+    width: 100%;
+  }
+
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #000;
+    margin-bottom: 2px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 7pt;
+    color: #333;
+  }
+  .topbar-motto { font-style: italic; text-align: center; flex: 1; }
+
+  .masthead {
+    text-align: center;
+    padding: 4px 0 3px;
+    border-top: 3px solid #000;
+    border-bottom: 3px solid #000;
+    margin-bottom: 3px;
+  }
+  .masthead h1 {
+    font-family: "UnifrakturMaguntia", "Times New Roman", serif;
+    font-size: 46pt;
+    font-weight: normal;
+    letter-spacing: 1px;
+    line-height: 1;
+    margin: 0;
+  }
+
+  .ticker {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #000;
+    padding: 2px 0;
+    margin-bottom: 6px;
+    overflow: hidden;
+  }
+  .ticker-badge {
+    background: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 6pt;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    white-space: nowrap;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  .ticker-items {
+    font-family: Arial, sans-serif;
+    font-size: 7pt;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+  .ticker-sep { color: #bbb; margin: 0 5px; }
+
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    gap: 0;
+    align-items: start;
+  }
+  .col { padding: 0 8px; }
+  .col:first-child { padding-left: 0; }
+  .col:last-child  { padding-right: 0; }
+  .col-rule { background: #bbb; align-self: stretch; }
+
+  .sec-head {
+    border-top: 2px solid #000;
+    border-bottom: 1px solid #000;
+    padding: 2px 0;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .sec-title {
+    font-family: Arial, sans-serif;
+    font-size: 6pt;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .sec-sub {
+    font-family: Arial, sans-serif;
+    font-size: 6pt;
+    color: #666;
+    font-style: italic;
+  }
+
+  .art-hed   { font-family: "Playfair Display", Georgia, serif; font-size: 13pt; font-weight: 700; line-height: 1.1; margin-bottom: 2px; }
+  .art-deck  { font-family: Arial, sans-serif; font-size: 7pt; color: #444; margin-bottom: 3px; border-bottom: 0.5px solid #ccc; padding-bottom: 3px; line-height: 1.4; }
+  .byline    { font-family: Arial, sans-serif; font-size: 6pt; letter-spacing: .5px; text-transform: uppercase; color: #777; margin-bottom: 5px; }
+
+  .wx {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #000;
+    padding: 4px 6px;
+    margin-bottom: 7px;
+  }
+  .wx-temp { font-size: 20pt; font-weight: bold; line-height: 1; }
+  .wx-info { font-family: Arial, sans-serif; font-size: 7pt; line-height: 1.6; }
+  .wx-city { font-weight: bold; }
+
+  .task {
+    display: grid;
+    grid-template-columns: 8px auto 1fr;
+    gap: 0 4px;
+    align-items: start;
+    padding: 2px 0;
+    border-bottom: 0.5px solid #e8e8e8;
+    font-size: 8.5pt;
+    line-height: 1.35;
+  }
+  .cb { width: 7px; height: 7px; border: 1px solid #000; margin-top: 2px; flex-shrink: 0; }
+  .cb-filled { background: #000; }
+  .t-time { font-family: Arial, sans-serif; font-size: 6.5pt; color: #888; padding-top: 1px; white-space: nowrap; }
+  .t-bold  { font-weight: bold; }
+
+  .qt {
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    padding: 5px 0;
+    margin-top: 8px;
+    text-align: center;
+  }
+  .qt-label { font-family: Arial, sans-serif; font-size: 6pt; letter-spacing: 1.5px; text-transform: uppercase; color: #888; margin-bottom: 3px; }
+  .qt-body  { font-style: italic; font-size: 8.5pt; line-height: 1.6; color: #111; }
+
+  .habit-grid { width: 100%; border-collapse: collapse; }
+  .habit-grid tr { border-bottom: 0.5px solid #e8e8e8; }
+  .habit-grid td { padding: 3px 0; vertical-align: middle; }
+  .hb-name { font-size: 8.5pt; font-weight: bold; padding-right: 6px; }
+  .hb-tgt  { font-family: Arial, sans-serif; font-size: 7pt; color: #777; padding-right: 6px; white-space: nowrap; }
+  .hb-boxes { display: flex; gap: 2px; }
+  .hb-box  { width: 9px; height: 9px; border: 0.7px solid #aaa; flex-shrink: 0; }
+
+  .today-pill {
+    display: inline-block;
+    background: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 5pt;
+    font-weight: bold;
+    padding: 0.5px 2.5px;
+    margin-left: 2px;
+    letter-spacing: .5px;
+    vertical-align: middle;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid #000;
+    padding-top: 3px;
+    margin-top: 7px;
+    font-family: Arial, sans-serif;
+    font-size: 6.5pt;
+    color: #444;
+  }
+  .footer-c { text-align: center; font-style: italic; }
+</style>
+</head>
+<body>
+
+<!-- TOP META -->
+<div class="topbar">
+  <span>{{ tarih }} &nbsp;·&nbsp; Istanbul</span>
+  <span class="topbar-motto">"All the news that's fit to plan."</span>
+  <span>{{ weather.temp }}° {{ weather.description }} &nbsp;·&nbsp; Week {{ hafta_no }}</span>
+</div>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <h1>The Bilal's Times</h1>
+</div>
+
+<!-- 3 COLUMNS -->
+<div class="columns">
+
+  <!-- COL 1: OFFICE TASKS -->
+  <div class="col">
+    <div class="sec-head">
+      <span class="sec-title">Office Tasks</span>
+      <span class="sec-sub">{{ tasks|length }} items</span>
+    </div>
+
+    <div class="art-hed">Today's Agenda</div>
+    <div class="art-deck">Priority tasks are marked in black. Focus on high-impact work first.</div>
+    <div class="byline">News Desk &nbsp;·&nbsp; {{ tarih }}</div>
+
+
+    <div class="wx">
+      <div class="wx-temp">{{ weather.temp }}°</div>
+      <div class="wx-info">
+        <span class="wx-city">{{ city }}</span><br>
+        {{ weather.description }}<br>
+        Feels like {{ weather.feels_like }}°
+        {% if weather.humidity != '—' %}&nbsp;· Humidity {{ weather.humidity }}%{% endif %}
+      </div>
+    </div>
+
+    {% if jira_tasks %}
+    <div style="font-family:Arial,sans-serif;font-size:5.5pt;font-weight:bold;letter-spacing:1px;text-transform:uppercase;color:#fff;background:#0052CC;display:inline-block;padding:1px 4px;margin-bottom:3px;">JIRA · Due Soon</div>
+    {% for jt in jira_tasks %}
+    <div class="task">
+      <div class="cb cb-filled"></div>
+      <span class="t-time" style="color:#0052CC;font-weight:bold;">{{ jt.key }}</span>
+      <span class="t-bold">{{ jt.text }}{% if jt.due %} <span style="font-size:5.5pt;color:#888;font-weight:normal;">({{ jt.due }})</span>{% endif %}</span>
+    </div>
+    {% endfor %}
+    <div style="border-bottom:0.5px solid #ccc;margin:4px 0;"></div>
+    {% endif %}
+
+    {% if notes %}
+    <div style="font-family:Arial,sans-serif;font-size:5.5pt;font-weight:bold;letter-spacing:1px;text-transform:uppercase;color:#fff;background:#555;display:inline-block;padding:1px 4px;margin-bottom:3px;">Yesterday's Notes</div>
+    {% for note in notes %}
+    <div class="task">
+      <div class="cb"></div>
+      <span class="t-time"></span>
+      <span style="color:#333;font-style:italic;">{{ note.text }}</span>
+    </div>
+    {% endfor %}
+    <div style="border-bottom:0.5px solid #ccc;margin:4px 0;"></div>
+    {% endif %}
+
+    {% for task in tasks %}
+    <div class="task">
+      <div class="cb {% if task.priority == 'high' %}cb-filled{% endif %}"></div>
+      <span class="t-time">{% if task.time %}{{ task.time }}{% endif %}</span>
+      <span class="{% if task.priority == 'high' %}t-bold{% endif %}">{{ task.text }}</span>
+    </div>
+    {% endfor %}
+
+  </div>
+
+  <div class="col-rule"></div>
+
+  <!-- COL 2: SPORTS & HABITS -->
+  <div class="col">
+    <div class="sec-head">
+      <span class="sec-title">Sports &amp; Habits</span>
+      <span class="sec-sub">Daily tracker</span>
+    </div>
+
+    <div class="art-hed">Your Habits Define You</div>
+    <div class="art-deck">Check each box. Consistency beats motivation every single day.</div>
+    <div class="byline">Health Editor &nbsp;·&nbsp; Weekly Tracker</div>
+
+    <table class="habit-grid">
+      {% for habit in habits %}
+      <tr>
+        <td class="hb-name">{{ habit.name }}</td>
+        <td class="hb-tgt">{{ habit.target }}</td>
+        <td>
+          <div class="hb-boxes">
+            {% for i in range(7) %}<div class="hb-box"></div>{% endfor %}
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <div class="col-rule"></div>
+
+  <!-- COL 3: TODAY'S SCHEDULE -->
+  <div class="col">
+    {% set today_schedule = schedule[0] %}
+    <div class="sec-head">
+      <span class="sec-title">Today's Schedule</span>
+      <span class="sec-sub">{{ today_schedule.label }}</span>
+    </div>
+
+    <div class="art-hed">{{ today_schedule.label }} Plan</div>
+    <div class="art-deck">Fixed routines and sport activity for today.</div>
+    <div class="byline">Planning Desk &nbsp;·&nbsp; Week {{ hafta_no }}</div>
+
+    <div class="sec-head" style="margin-top: 8px;">
+      <span class="sec-title">Routine Tasks</span>
+    </div>
+    {% for task in today_schedule.tasks %}
+    <div class="task">
+      <div class="cb"></div>
+      <span class="t-time"></span>
+      <span>{{ task }}</span>
+    </div>
+    {% endfor %}
+
+    {% if today_schedule.sport %}
+    <div class="sec-head" style="margin-top: 10px;">
+      <span class="sec-title">Sport Activity</span>
+    </div>
+    <div style="font-size: 10pt; font-family: 'Playfair Display', serif; font-weight: 700; padding: 6px 0 2px;">
+      ⚡ {{ today_schedule.sport }}
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+
+<!-- NEWS -->
+{% if news %}
+<div style="border-top: 2px solid #000; margin-top: 8px; padding-top: 4px;">
+  <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #000; padding-bottom: 2px; margin-bottom: 6px;">
+    <span style="font-family: Arial, sans-serif; font-size: 6pt; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase;">World News</span>
+    <span style="font-family: Arial, sans-serif; font-size: 6pt; color: #666; font-style: italic;">The Guardian</span>
+  </div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 12px;">
+    {% for article in news %}
+    <div style="border-top: 0.5px solid #ddd; padding-top: 4px; margin-top: {% if loop.index > 3 %}6px{% else %}0{% endif %};">
+      {% if article.thumbnail and not bw_mode %}
+      <img src="{{ article.thumbnail }}" style="width: 100%; height: 70px; object-fit: cover; display: block; margin-bottom: 3px;">
+      {% endif %}
+      <div style="font-family: Arial, sans-serif; font-size: 5.5pt; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; color: #888; margin-bottom: 1px;">{{ article.section }}</div>
+      <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 8pt; font-weight: 700; line-height: 1.2; margin-bottom: 2px;">{{ article.headline | truncate(100) }}</div>
+      {% if article.detail %}
+      <div style="font-family: 'Libre Baskerville', serif; font-size: 6.5pt; color: #222; line-height: 1.5; margin-bottom: 2px;">{{ article.detail | truncate(560) }}</div>
+      {% endif %}
+      {% if article.byline %}
+      <div style="font-family: Arial, sans-serif; font-size: 5.5pt; color: #999; margin-top: 2px; text-transform: uppercase; letter-spacing: .5px;">{{ article.byline }}</div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<!-- FOOTER -->
+<div class="footer">
+  <span>The Bilal's Times &nbsp;·&nbsp; Personal Edition</span>
+  <span class="footer-c">{{ tarih }} &nbsp;·&nbsp; Distribution: 1 Copy</span>
+  <span>Week {{ hafta_no }} / {{ yil }} &nbsp;·&nbsp; {{ tasks|length }} tasks</span>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+user:
+  name: "Your Name"
+  city: "Istanbul"
+  timezone: "Europe/Istanbul"
+
+weather:
+  api_key: "YOUR_OPENWEATHERMAP_API_KEY"   # openweathermap.org/api — free tier
+  units: "metric"
+
+jira:
+  cloud_id: "YOUR_ATLASSIAN_CLOUD_ID"      # from your Atlassian URL
+  email: "you@yourcompany.com"
+  enabled: false
+  max_issues: 2
+  # Token goes in ~/.bulletin_jira_token (never commit it)
+
+guardian:
+  api_key: "YOUR_GUARDIAN_API_KEY"         # open-platform.theguardian.com — free tier
+  page_size: 9                             # must be a multiple of 3
+  sections:
+    - world
+    - technology
+    - politics
+  section_sizes:
+    world: 4
+    technology: 4
+    politics: 1
+
+printer:
+  enabled: false
+  printer_name: ""     # run `lpstat -p` to find your printer name
+  bw_mode: true        # true = skip thumbnails (saves toner on B&W laser)
+
+output:
+  pdf_path: "/Users/YOURUSERNAME/bulletin/output/bulletin_today.pdf"
+  keep_last_days: 7
+
+habits:
+  - name: "Walking"
+    target: "8,000 steps"
+  - name: "Hydration"
+    target: "2.5 litres"
+  - name: "Meditation"
+    target: "10 minutes"
+  - name: "Reading"
+    target: "30 minutes"
+  - name: "Sleep"
+    target: "7-8 hours"
