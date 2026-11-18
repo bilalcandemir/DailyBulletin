@@ -26,6 +26,10 @@ guardian:
     technology: 4
     politics: 1
 
+claude:
+  enabled: false
+  # Token in ~/.bulletin_claude_token (get from console.anthropic.com — free tier works)
+
 printer:
   enabled: false
   printer_name: ""     # run `lpstat -p` to find your printer name

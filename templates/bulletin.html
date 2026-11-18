@@ -348,6 +348,54 @@
 </div>
 {% endif %}
 
+<!-- LANGUAGE MODULE -->
+{% if lang_module %}
+<div style="border-top: 2px solid #000; margin-top: 8px; padding-top: 4px;">
+  <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #000; padding-bottom: 2px; margin-bottom: 6px;">
+    <span style="font-family: Arial, sans-serif; font-size: 6pt; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase;">English Practice</span>
+    <span style="font-family: Arial, sans-serif; font-size: 6pt; color: #666; font-style: italic;">Daily language module</span>
+  </div>
+  <div style="display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0 12px;">
+
+    <!-- Collocations -->
+    <div>
+      <div style="font-family: Arial, sans-serif; font-size: 6pt; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; color: #444; border-bottom: 0.5px solid #ccc; padding-bottom: 2px; margin-bottom: 4px;">Today's Collocations</div>
+      <table style="width:100%; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 0.5px solid #000;">
+            <td style="font-family: Arial, sans-serif; font-size: 5.5pt; font-weight: bold; letter-spacing: .5px; text-transform: uppercase; color: #888; padding: 1px 4px 1px 0; width: 28%;">Phrase</td>
+            <td style="font-family: Arial, sans-serif; font-size: 5.5pt; font-weight: bold; letter-spacing: .5px; text-transform: uppercase; color: #888; padding: 1px 4px 1px 0; width: 50%;">Example</td>
+            <td style="font-family: Arial, sans-serif; font-size: 5.5pt; font-weight: bold; letter-spacing: .5px; text-transform: uppercase; color: #888; padding: 1px 0;">Meaning</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for col in lang_module.collocations %}
+          <tr style="border-bottom: 0.3px solid #e8e8e8;">
+            <td style="font-family: 'Libre Baskerville', serif; font-size: 7pt; font-weight: bold; padding: 2px 4px 2px 0; vertical-align: top;">{{ col.phrase }}</td>
+            <td style="font-family: 'Libre Baskerville', serif; font-size: 6.5pt; color: #333; font-style: italic; padding: 2px 4px 2px 0; vertical-align: top;">{{ col.sentence }}</td>
+            <td style="font-family: Arial, sans-serif; font-size: 6pt; color: #666; padding: 2px 0; vertical-align: top;">{{ col.note }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div style="background: #bbb;"></div>
+
+    <!-- Writing Prompt -->
+    <div>
+      <div style="font-family: Arial, sans-serif; font-size: 6pt; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; color: #444; border-bottom: 0.5px solid #ccc; padding-bottom: 2px; margin-bottom: 6px;">Morning Writing Prompt</div>
+      <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 9pt; font-weight: 700; line-height: 1.3; margin-bottom: 10px;">{{ lang_module.writing_prompt }}</div>
+      {% for i in range(8) %}
+      <div style="border-bottom: 0.5px solid #ccc; height: 16px; margin-bottom: 1px;"></div>
+      {% endfor %}
+      <div style="font-family: Arial, sans-serif; font-size: 5.5pt; color: #aaa; margin-top: 3px; font-style: italic;">Write 2–3 sentences. Intro + argument + conclusion.</div>
+    </div>
+
+  </div>
+</div>
+{% endif %}
+
 <!-- FOOTER -->
 <div class="footer">
   <span>The Bilal's Times &nbsp;·&nbsp; Personal Edition</span>

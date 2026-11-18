@@ -198,6 +198,52 @@ def fetch_guardian_news(api_key, sections, page_size=9, section_sizes=None):
         print(f"Guardian fetch failed: {e}")
         return []
 
+# ── language module ───────────────────────────────
+
+def fetch_language_module(articles, api_key):
+    """Generate writing prompt + collocations from today's news via Claude."""
+    if not api_key or api_key.startswith("YOUR"):
+        return None
+    try:
+        import anthropic, json
+        client = anthropic.Anthropic(api_key=api_key)
+
+        snippets = "\n".join(
+            f"- {a['headline']}: {a.get('detail','')[:300]}"
+            for a in articles[:6]
+        )
+
+        result = client.messages.create(
+            model="claude-haiku-5-5",
+            max_tokens=4096,
+            messages=[{"role": "user", "content": f"""You are generating a daily English language-learning module for a printed newspaper.
+
+Based on today's articles:
+{snippets}
+
+Return ONLY valid JSON (no markdown, no extra text):
+{{
+  "writing_prompt": "One open-ended question (max 25 words) tied to a specific article above.",
+  "collocations": [
+    {{"phrase": "verb+noun or adj+noun pair", "sentence": "Short news-style example sentence (max 12 words).", "note": "Brief meaning (3-5 words)"}},
+    {{"phrase": "...", "sentence": "...", "note": "..."}},
+    {{"phrase": "...", "sentence": "...", "note": "..."}},
+    {{"phrase": "...", "sentence": "...", "note": "..."}},
+    {{"phrase": "...", "sentence": "...", "note": "..."}},
+    {{"phrase": "...", "sentence": "...", "note": "..."}}
+  ]
+}}"""}]
+        )
+        raw = next(b.text for b in result.content if hasattr(b, "text")).strip()
+        if raw.startswith("```"):
+            raw = raw.split("```")[1]
+            if raw.startswith("json"):
+                raw = raw[4:]
+        return json.loads(raw)
+    except Exception as e:
+        print(f"Language module failed: {e}")
+        return None
+
 # ── PDF ───────────────────────────────────────────
 
 async def html_to_pdf(html_str: str, output_path: str):
@@ -269,6 +315,18 @@ def main():
 
     bw_mode = cfg.get("printer", {}).get("bw_mode", False)
 
+    # Language module (Claude API)
+    lang_module = None
+    cl_cfg = cfg.get("claude", {})
+    if cl_cfg.get("enabled", False) and news:
+        token_file = os.path.expanduser("~/.bulletin_claude_token")
+        if os.path.exists(token_file):
+            with open(token_file) as f:
+                cl_key = f.read().strip()
+            lang_module = fetch_language_module(news, cl_key)
+        else:
+            print("Claude token not found (~/.bulletin_claude_token) — skipping language module.")
+
     env      = Environment(loader=FileSystemLoader(TEMPLATE_DIR))
     template = env.get_template("bulletin.html")
     html_str = template.render(
@@ -277,6 +335,7 @@ def main():
         schedule=schedule, habits=habits,
         weather=weather, city=cfg["user"]["city"],
         news=news, bw_mode=bw_mode,
+        lang_module=lang_module,
     )
 
     out = cfg["output"]["pdf_path"].replace(
